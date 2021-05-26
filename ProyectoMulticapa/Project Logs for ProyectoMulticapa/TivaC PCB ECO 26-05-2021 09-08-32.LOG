@@ -1,0 +1,21 @@
+Added Component: Designator=J5(TAG-CONNECT_TC2050-IDC-NL)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Tag-Connect LLC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "TC2050-IDC-NL"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/TC2050-IDC-NL/Tag-Connect%20LLC/view-part/134534/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=ICDI_TMS Pin=J5-2
+Added Pin To Net: NetName=GND Pin=J5-3
+Added Pin To Net: NetName=ICDI_TCK Pin=J5-4
+Added Pin To Net: NetName=GND Pin=J5-5
+Added Pin To Net: NetName=ICDI_TDO Pin=J5-6
+Added Pin To Net: NetName=ICDI_TDI Pin=J5-8
+Added Pin To Net: NetName=GND Pin=J5-9
+Added Pin To Net: NetName=ICDI_RST Pin=J5-10
+Added Member To Class: ClassName=[5] In Circuit Debug Interface Member=Component J5 TC2050-IDC-NL
+Added Room: Name=[3] Microcontroller, USB, Expansion, Buttons and LED
+Added Room: Name=[4] Power Management
+Added Room: Name=[5] In Circuit Debug Interface

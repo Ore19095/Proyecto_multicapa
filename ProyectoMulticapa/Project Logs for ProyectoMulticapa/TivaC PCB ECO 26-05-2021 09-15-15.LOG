@@ -1,0 +1,7 @@
+Added Component: Designator=H(HEADER 1)
+Add component. Clean all parameters for all variants
+Added Pin To Net: NetName=+3.3V Pin=H-1
+Added Member To Class: ClassName=[4] Power Management Member=Component H header
+Added Room: Name=[3] Microcontroller, USB, Expansion, Buttons and LED
+Added Room: Name=[4] Power Management
+Added Room: Name=[5] In Circuit Debug Interface
