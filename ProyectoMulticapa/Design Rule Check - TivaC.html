@@ -1,0 +1,825 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 8em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD19\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">28/05/2021</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">15:44:22</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:01</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc" class="file"><acronym title="C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc">C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">159</td></tr>
+</table>
+</td>
+</table><a name="IDZ1PC11WIPIE5DECK0SQJZKKUUCEK5EXRZJBX5QI02CWFYMEOQ0MF"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDFUMHG1GRJ3CWC2FXNLNZHHPVEHJ3N4UA3WVG4QEDUSGYXNSGMP3F">Clearance Constraint (Gap=7.874mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID1SJ4YDK34VUYGNNSIFBFJ1FMZPJAP3YMM2AZNFBEAXYLD1ZBAR3F">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDMEOFGSWQX2B1JBZITALSGZIYKKPA1N2RWH2J1MEDVKPGTHMQOW3H">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">79</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID2H50PWFBFXIFJG3RDTKVDBKNOIAILUEOT24A0SBRG1XJY3ILXYEO">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDLL0UFRXQLWSXMJGPDCBGCABZSORPCBB0Z4ZKQ5NQ2ZKF3434UWSM">Width Constraint (Min=5mil) (Max=12mil) (Preferred=12mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDWGDI5DCD2WUAIX4RH0QED02USLOR25XGKVJSR5HBBI0FE0354YQC">Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDPCNN15N13GHOJSBLFCOP32LFSMPCYGVHIMYKDXGS5VR243GT3TYG">Minimum Annular Ring (Minimum=3.5mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDR3FXEPF5SLKFD0EUR3AJ2FFMMMNALJQY41EOS3CN4K0N1OPR5PLB">Hole Size Constraint (Min=5.906mil) (Max=255.905mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDHHP33GYTUJQPDFFENCSSGGFDWKABLSOEAJP0FEHXCMDYGHLOD1B">Hole To Hole Clearance (Gap=12mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDWKVLWDFGECREC0O4PUWVK2YBHDT2WQHIFQGIX5KPOY22ZVYT1XYF">Minimum Solder Mask Sliver (Gap=1mil) (All),(All)</a></td>
+<td class="column2">4</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDNFNR1KK0HP1BOFAEPSRFGLFTQIAKXS2NDZLXCCFAA0FBA24USR1L">Silk To Solder Mask (Clearance=3.5mil) (IsPad),(All)</a></td>
+<td class="column2">68</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDOS3XOXHGD1VUOC00FFOR21EULIAHKN2UDO0PBTIYOWVQ11F1KXLK">Silk to Silk (Clearance=6mil) (All),(All)</a></td>
+<td class="column2">6</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID3W4DH3HHZX0CP22YEOCDO3SYTKOENRCYHC3DKOLWC4EKVOMEKMPF">Net Antennae (Tolerance=0mil) (All)</a></td>
+<td class="column2">2</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDKO30JFRNQYLJLCPO4S1ZPST1TCVYXOPV3QVGZDGPRBEMOC5QH4AD">Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">159</td>
+</tr>
+</table><br><a name="IDMEOFGSWQX2B1JBZITALSGZIYKKPA1N2RWH2J1MEDVKPGTHMQOW3H"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Un-Routed Net Constraint ( (All) )</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=899.057mil|Location2.X=1005.142mil|Location1.Y=1849.189mil|Location2.Y=2115.024mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=899.057mil|Location2.X=1005.142mil|Location1.Y=1849.189mil|Location2.Y=2115.024mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U2-12(927.663mil,2106.102mil) on L1 And Pad  -2(989.331mil,1865mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=476.984mil|Location2.X=705.575mil|Location1.Y=41.827mil|Location2.Y=630.836mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=476.984mil|Location2.X=705.575mil|Location1.Y=41.827mil|Location2.Y=630.836mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad SW1-4(511.496mil,71.417mil) on L1 And Pad C12-2(689.764mil,614.237mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=610.503mil|Location2.X=655.811mil|Location1.Y=2084.189mil|Location2.Y=2450.26mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=610.503mil|Location2.X=655.811mil|Location1.Y=2084.189mil|Location2.Y=2450.26mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad J11-5(622.377mil,2419.685mil) on L1 [Unplated] And Pad C18-2(640mil,2100mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=430mil|Location2.X=740mil|Location1.Y=1959.98mil|Location2.Y=2200mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=430mil|Location2.X=740mil|Location1.Y=1959.98mil|Location2.Y=2200mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Track (530mil,2059.98mil)(530mil,2071.339mil) on L1 And Pad C18-2(640mil,2100mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=903.13mil|Location2.X=956.202mil|Location1.Y=1137.577mil|Location2.Y=1495.132mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=903.13mil|Location2.X=956.202mil|Location1.Y=1137.577mil|Location2.Y=1495.132mil|Absolute=True">Un-Routed Net Constraint: Net NetC28_1 Between Pad U1-36(929.666mil,1164.113mil) on L1 And Pad C28-1(930mil,1479.321mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=913.402mil|Location2.X=970.121mil|Location1.Y=1151.496mil|Location2.Y=1532.927mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=913.402mil|Location2.X=970.121mil|Location1.Y=1151.496mil|Location2.Y=1532.927mil|Absolute=True">Un-Routed Net Constraint: Net NetC28_2 Between Pad C28-2(930mil,1517.116mil) on L1 And Pad U1-35(943.585mil,1178.032mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=913.402mil|Location2.X=984.041mil|Location1.Y=1165.416mil|Location2.Y=1619.709mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=913.402mil|Location2.X=984.041mil|Location1.Y=1165.416mil|Location2.Y=1619.709mil|Absolute=True">Un-Routed Net Constraint: Net NetC29_2 Between Pad C29-2(930mil,1603.898mil) on L1 And Pad U1-34(957.505mil,1191.952mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1118.881mil|Location2.X=1407.48mil|Location1.Y=1109.738mil|Location2.Y=1162.81mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1118.881mil|Location2.X=1407.48mil|Location1.Y=1109.738mil|Location2.Y=1162.81mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U1-27(1145.417mil,1136.274mil) on L1 And Pad C3-2(1391.669mil,1135mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=672.181mil|Location2.X=858.766mil|Location1.Y=699.116mil|Location2.Y=849.623mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=672.181mil|Location2.X=858.766mil|Location1.Y=699.116mil|Location2.Y=849.623mil|Absolute=True">Un-Routed Net Constraint: Net NetC3_1 Between Pad C4-1(687.992mil,714.927mil) on L1 And Pad U1-54(832.23mil,823.087mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1219.189mil|Location2.X=1345.48mil|Location1.Y=433.52mil|Location2.Y=505.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1219.189mil|Location2.X=1345.48mil|Location1.Y=433.52mil|Location2.Y=505.811mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C6-2(1235mil,449.331mil) on L1 And Pad C8-2(1329.669mil,490mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1077.123mil|Location2.X=1250.811mil|Location1.Y=433.52mil|Location2.Y=738.267mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1077.123mil|Location2.X=1250.811mil|Location1.Y=433.52mil|Location2.Y=738.267mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U1-3(1103.659mil,711.731mil) on L1 And Pad C6-2(1235mil,449.331mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=406.102mil|Location2.X=960.069mil|Location1.Y=1058.791mil|Location2.Y=1166.677mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=406.102mil|Location2.X=960.069mil|Location1.Y=1058.791mil|Location2.Y=1166.677mil|Absolute=True">Un-Routed Net Constraint: Net NetC3_1 Between Pad C7-1(506.102mil,1158.791mil) on L1 And Track (860.069mil,1066.677mil)(876.221mil,1066.677mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=497.913mil|Location2.X=2006.732mil|Location1.Y=1932.953mil|Location2.Y=1681.268mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=497.913mil|Location2.X=2006.732mil|Location1.Y=1932.953mil|Location2.Y=1681.268mil|Absolute=True">Un-Routed Net Constraint: Net +VBUS Between Track (597.913mil,2032.953mil)(611.303mil,2046.342mil) on L1 And Pad D1-1(1906.732mil,1581.268mil) on L1 [Unplated] </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1825mil|Location2.X=2040mil|Location1.Y=-25mil|Location2.Y=2341.22mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1825mil|Location2.X=2040mil|Location1.Y=-25mil|Location2.Y=2341.22mil|Absolute=True">Un-Routed Net Constraint: Net +3.3V Between Pad H22-1(1925mil,75mil) on Multi-Layer And Track (1940mil,2240.236mil)(1940mil,2241.22mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=81.472mil|Location2.X=560.496mil|Location1.Y=1306.473mil|Location2.Y=1905.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=81.472mil|Location2.X=560.496mil|Location1.Y=1306.473mil|Location2.Y=1905.496mil|Absolute=True">Un-Routed Net Constraint: Net +3.3V Between Pad J1-1(115mil,1340mil) on Multi-Layer And Pad H24/25-2(525mil,1870mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=381.772mil|Location2.X=625mil|Location1.Y=2009.724mil|Location2.Y=1970mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=381.772mil|Location2.X=625mil|Location1.Y=2009.724mil|Location2.Y=1970mil|Absolute=True">Un-Routed Net Constraint: Net +3.3V Between Track (481.772mil,2109.724mil)(493.233mil,2121.185mil) on L1 And Pad H24/25-2(525mil,1870mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=181.472mil|Location2.X=984.041mil|Location1.Y=671.276mil|Location2.Y=973.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=181.472mil|Location2.X=984.041mil|Location1.Y=671.276mil|Location2.Y=973.528mil|Absolute=True">Un-Routed Net Constraint: Net PD2 Between Pad J1-10(215mil,940mil) on Multi-Layer And Pad U1-63(957.505mil,697.812mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=81.472mil|Location2.X=942.282mil|Location1.Y=713.034mil|Location2.Y=873.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=81.472mil|Location2.X=942.282mil|Location1.Y=713.034mil|Location2.Y=873.528mil|Absolute=True">Un-Routed Net Constraint: Net PE5 Between Pad J1-11(115mil,840mil) on Multi-Layer And Pad U1-60(915.746mil,739.57mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=181.472mil|Location2.X=997.96mil|Location1.Y=657.357mil|Location2.Y=873.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=181.472mil|Location2.X=997.96mil|Location1.Y=657.357mil|Location2.Y=873.528mil|Absolute=True">Un-Routed Net Constraint: Net PD3 Between Pad J1-12(215mil,840mil) on Multi-Layer And Pad U1-64(971.424mil,683.893mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=81.472mil|Location2.X=914.443mil|Location1.Y=706.472mil|Location2.Y=793.945mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=81.472mil|Location2.X=914.443mil|Location1.Y=706.472mil|Location2.Y=793.945mil|Absolute=True">Un-Routed Net Constraint: Net PB4 Between Pad J1-13(115mil,740mil) on Multi-Layer And Pad U1-58(887.908mil,767.409mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=181.472mil|Location2.X=1199.792mil|Location1.Y=706.472mil|Location2.Y=807.865mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=181.472mil|Location2.X=1199.792mil|Location1.Y=706.472mil|Location2.Y=807.865mil|Absolute=True">Un-Routed Net Constraint: Net PE1 Between Pad J1-14(215mil,740mil) on Multi-Layer And Pad U1-8(1173.256mil,781.329mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=81.472mil|Location2.X=1241.55mil|Location1.Y=606.472mil|Location2.Y=1093.213mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=81.472mil|Location2.X=1241.55mil|Location1.Y=606.472mil|Location2.Y=1093.213mil|Absolute=True">Un-Routed Net Constraint: Net PA5 Between Pad J1-15(115mil,640mil) on Multi-Layer And Pad U1-22(1215.014mil,1066.677mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=181.472mil|Location2.X=1185.872mil|Location1.Y=606.472mil|Location2.Y=793.945mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=181.472mil|Location2.X=1185.872mil|Location1.Y=606.472mil|Location2.Y=793.945mil|Absolute=True">Un-Routed Net Constraint: Net PE2 Between Pad J1-16(215mil,640mil) on Multi-Layer And Pad U1-7(1159.336mil,767.409mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=81.472mil|Location2.X=1227.631mil|Location1.Y=506.473mil|Location2.Y=1107.132mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=81.472mil|Location2.X=1227.631mil|Location1.Y=506.473mil|Location2.Y=1107.132mil|Absolute=True">Un-Routed Net Constraint: Net PA6 Between Pad J1-17(115mil,540mil) on Multi-Layer And Pad U1-23(1201.095mil,1080.596mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=181.472mil|Location2.X=1171.953mil|Location1.Y=506.473mil|Location2.Y=780.026mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=181.472mil|Location2.X=1171.953mil|Location1.Y=506.473mil|Location2.Y=780.026mil|Absolute=True">Un-Routed Net Constraint: Net PE3 Between Pad J1-18(215mil,540mil) on Multi-Layer And Pad U1-6(1145.417mil,753.49mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=81.472mil|Location2.X=1213.711mil|Location1.Y=406.473mil|Location2.Y=1121.052mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=81.472mil|Location2.X=1213.711mil|Location1.Y=406.473mil|Location2.Y=1121.052mil|Absolute=True">Un-Routed Net Constraint: Net PA7 Between Pad J1-19(115mil,440mil) on Multi-Layer And Pad U1-24(1187.175mil,1094.516mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=115mil|Location2.X=1217.578mil|Location1.Y=340mil|Location2.Y=1264.154mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=115mil|Location2.X=1217.578mil|Location1.Y=340mil|Location2.Y=1264.154mil|Absolute=True">Un-Routed Net Constraint: Net PF1 Between Pad J1-20(215mil,440mil) on Multi-Layer And Track (1117.578mil,1164.154mil)(1212.208mil,1258.783mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=81.472mil|Location2.X=900.524mil|Location1.Y=754.793mil|Location2.Y=1273.527mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=81.472mil|Location2.X=900.524mil|Location1.Y=754.793mil|Location2.Y=1273.527mil|Absolute=True">Un-Routed Net Constraint: Net PB5 Between Pad J1-3(115mil,1240mil) on Multi-Layer And Pad U1-57(873.988mil,781.329mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=181.472mil|Location2.X=259.433mil|Location1.Y=1206.473mil|Location2.Y=1623.449mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=181.472mil|Location2.X=259.433mil|Location1.Y=1206.473mil|Location2.Y=1623.449mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad J1-4(215mil,1240mil) on Multi-Layer And Pad J9-5(228.858mil,1611.575mil) on L1 [Unplated] </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=115mil|Location2.X=518.62mil|Location1.Y=1140mil|Location2.Y=1323mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=115mil|Location2.X=518.62mil|Location1.Y=1140mil|Location2.Y=1323mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad J1-4(215mil,1240mil) on Multi-Layer And Track (418.62mil,1223mil)(431.017mil,1210.602mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=81.472mil|Location2.X=830.927mil|Location1.Y=1012.302mil|Location2.Y=1173.527mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=81.472mil|Location2.X=830.927mil|Location1.Y=1012.302mil|Location2.Y=1173.527mil|Absolute=True">Un-Routed Net Constraint: Net PB0 Between Pad J1-5(115mil,1140mil) on Multi-Layer And Pad U1-45(804.391mil,1038.838mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=181.472mil|Location2.X=956.202mil|Location1.Y=699.115mil|Location2.Y=1173.527mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=181.472mil|Location2.X=956.202mil|Location1.Y=699.115mil|Location2.Y=1173.527mil|Absolute=True">Un-Routed Net Constraint: Net PD0 Between Pad J1-6(215mil,1140mil) on Multi-Layer And Pad U1-61(929.666mil,725.651mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=81.472mil|Location2.X=817.008mil|Location1.Y=998.383mil|Location2.Y=1073.527mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=81.472mil|Location2.X=817.008mil|Location1.Y=998.383mil|Location2.Y=1073.527mil|Absolute=True">Un-Routed Net Constraint: Net PB1 Between Pad J1-7(115mil,1040mil) on Multi-Layer And Pad U1-46(790.472mil,1024.919mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=181.472mil|Location2.X=970.121mil|Location1.Y=685.196mil|Location2.Y=1073.527mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=181.472mil|Location2.X=970.121mil|Location1.Y=685.196mil|Location2.Y=1073.527mil|Absolute=True">Un-Routed Net Constraint: Net PD1 Between Pad J1-8(215mil,1040mil) on Multi-Layer And Pad U1-62(943.585mil,711.731mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=81.472mil|Location2.X=928.363mil|Location1.Y=726.954mil|Location2.Y=973.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=81.472mil|Location2.X=928.363mil|Location1.Y=726.954mil|Location2.Y=973.528mil|Absolute=True">Un-Routed Net Constraint: Net PE4 Between Pad J1-9(115mil,940mil) on Multi-Layer And Pad U1-59(901.827mil,753.49mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1091.042mil|Location2.X=1918.527mil|Location1.Y=699.115mil|Location2.Y=873.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1091.042mil|Location2.X=1918.527mil|Location1.Y=699.115mil|Location2.Y=873.528mil|Absolute=True">Un-Routed Net Constraint: Net PB7 Between Pad U1-4(1117.578mil,725.651mil) on L1 And Pad J2-12(1885mil,840mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1630.508mil|Location2.X=1918.527mil|Location1.Y=1306.473mil|Location2.Y=1489.517mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1630.508mil|Location2.X=1918.527mil|Location1.Y=1306.473mil|Location2.Y=1489.517mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad Q1-2(1644.508mil,1478.51mil) on L1 And Pad J2-2(1885mil,1340mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=750.016mil|Location2.X=1918.527mil|Location1.Y=984.463mil|Location2.Y=1273.527mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=750.016mil|Location2.X=1918.527mil|Location1.Y=984.463mil|Location2.Y=1273.527mil|Absolute=True">Un-Routed Net Constraint: Net PB2 Between Pad U1-47(776.552mil,1010.999mil) on L1 And Pad J2-4(1885mil,1240mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=736.097mil|Location2.X=1818.527mil|Location1.Y=970.544mil|Location2.Y=1173.527mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=736.097mil|Location2.X=1818.527mil|Location1.Y=970.544mil|Location2.Y=1173.527mil|Absolute=True">Un-Routed Net Constraint: Net PB3 Between Pad U1-48(762.633mil,997.08mil) on L1 And Pad J2-5(1785mil,1140mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1865.508mil|Location2.X=1956.008mil|Location1.Y=1988.992mil|Location2.Y=2244.492mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1865.508mil|Location2.X=1956.008mil|Location1.Y=1988.992mil|Location2.Y=2244.492mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad J5-5(1885mil,2225mil) on L6 And Pad SW3-3(1921.496mil,2018.583mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=170.732mil|Location2.X=259.433mil|Location1.Y=1599.701mil|Location2.Y=1975.908mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=170.732mil|Location2.X=259.433mil|Location1.Y=1599.701mil|Location2.Y=1975.908mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad R14-2(193.498mil,1955mil) on L1 And Pad J9-5(228.858mil,1611.575mil) on L1 [Unplated] </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=764.504mil|Location2.X=835.496mil|Location1.Y=824.39mil|Location2.Y=1820.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=764.504mil|Location2.X=835.496mil|Location1.Y=824.39mil|Location2.Y=1820.496mil|Absolute=True">Un-Routed Net Constraint: Net DEBUG_PC0/TCK/SWCLK Between Pad P3-1(800mil,1785mil) on Multi-Layer And Pad U1-52(804.391mil,850.926mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=763.936mil|Location2.X=927.996mil|Location1.Y=838.309mil|Location2.Y=1820.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=763.936mil|Location2.X=927.996mil|Location1.Y=838.309mil|Location2.Y=1820.496mil|Absolute=True">Un-Routed Net Constraint: Net DEBUG_PC1/TMS/SWDIO Between Pad U1-51(790.472mil,864.845mil) on L1 And Pad P4-1(892.5mil,1785mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1627.508mil|Location2.X=1658.508mil|Location1.Y=1467.502mil|Location2.Y=1582.323mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1627.508mil|Location2.X=1658.508mil|Location1.Y=1467.502mil|Location2.Y=1582.323mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad Q3-2(1641.508mil,1571.315mil) on L1 And Pad Q1-2(1644.508mil,1478.51mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1627.508mil|Location2.X=1656.508mil|Location1.Y=1560.307mil|Location2.Y=1660.323mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1627.508mil|Location2.X=1656.508mil|Location1.Y=1560.307mil|Location2.Y=1660.323mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad Q3-2(1641.508mil,1571.315mil) on L1 And Pad Q2-2(1642.508mil,1649.315mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1573.992mil|Location2.X=1656.508mil|Location1.Y=1638.307mil|Location2.Y=2048.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1573.992mil|Location2.X=1656.508mil|Location1.Y=1638.307mil|Location2.Y=2048.173mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad SW3-4(1608.504mil,2018.583mil) on L1 And Pad Q2-2(1642.508mil,1649.315mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=93.498mil|Location2.X=500.788mil|Location1.Y=1855mil|Location2.Y=2152.441mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=93.498mil|Location2.X=500.788mil|Location1.Y=1855mil|Location2.Y=2152.441mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad R14-2(193.498mil,1955mil) on L1 And Track (400mil,2052.441mil)(400.788mil,2052.441mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=707.018mil|Location2.X=1471.364mil|Location1.Y=1905.236mil|Location2.Y=2225mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=707.018mil|Location2.X=1471.364mil|Location1.Y=1905.236mil|Location2.Y=2225mil|Absolute=True">Un-Routed Net Constraint: Net ICDI_RST Between Pad R19-2(807.018mil,2005.236mil) on L1 And Track (1370.576mil,2125.787mil)(1371.364mil,2125mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=875.291mil|Location2.X=936.858mil|Location1.Y=1109.738mil|Location2.Y=1415.079mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=875.291mil|Location2.X=936.858mil|Location1.Y=1109.738mil|Location2.Y=1415.079mil|Absolute=True">Un-Routed Net Constraint: Net TARGETRST Between Pad U1-38(901.827mil,1136.274mil) on L1 And Pad R28-1(924mil,1401.236mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=824mil|Location2.X=1219.592mil|Location1.Y=1301.236mil|Location2.Y=2033.858mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=824mil|Location2.X=1219.592mil|Location1.Y=1301.236mil|Location2.Y=2033.858mil|Absolute=True">Un-Routed Net Constraint: Net TARGETRST Between Pad R28-1(924mil,1401.236mil) on L1 And Track (1119.592mil,1933.858mil)(1119.592mil,1953.543mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1341.97mil|Location2.X=1643.016mil|Location1.Y=1988.992mil|Location2.Y=2055.968mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1341.97mil|Location2.X=1643.016mil|Location1.Y=1988.992mil|Location2.Y=2055.968mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U2-34(1370.576mil,2047.047mil) on L1 And Pad SW3-4(1608.504mil,2018.583mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1508.504mil|Location2.X=1713.927mil|Location1.Y=1918.583mil|Location2.Y=2366.142mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1508.504mil|Location2.X=1713.927mil|Location1.Y=1918.583mil|Location2.Y=2366.142mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad SW3-4(1608.504mil,2018.583mil) on L1 And Track (1570.069mil,2310mil)(1613.927mil,2266.142mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1077.123mil|Location2.X=1255.469mil|Location1.Y=685.196mil|Location2.Y=863.542mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1077.123mil|Location2.X=1255.469mil|Location1.Y=685.196mil|Location2.Y=863.542mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U1-3(1103.659mil,711.731mil) on L1 And Pad U1-12(1228.934mil,837.006mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=805.694mil|Location2.X=1116.275mil|Location1.Y=671.276mil|Location2.Y=849.623mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=805.694mil|Location2.X=1116.275mil|Location1.Y=671.276mil|Location2.Y=849.623mil|Absolute=True">Un-Routed Net Constraint: Net NetC3_1 Between Pad U1-54(832.23mil,823.087mil) on L1 And Pad U1-2(1089.739mil,697.812mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=829.666mil|Location2.X=1259.336mil|Location1.Y=1036.274mil|Location2.Y=1222.355mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=829.666mil|Location2.X=1259.336mil|Location1.Y=1036.274mil|Location2.Y=1222.355mil|Absolute=True">Un-Routed Net Constraint: Net NetC3_1 Between Track (929.666mil,1120.122mil)(929.666mil,1136.274mil) on L1 And Pad U1-26(1159.336mil,1122.355mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=861.372mil|Location2.X=1171.953mil|Location1.Y=1095.819mil|Location2.Y=1162.81mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=861.372mil|Location2.X=1171.953mil|Location1.Y=1095.819mil|Location2.Y=1162.81mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U1-39(887.908mil,1122.355mil) on L1 And Pad U1-27(1145.417mil,1136.274mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=819.613mil|Location2.X=1130.195mil|Location1.Y=685.196mil|Location2.Y=835.703mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=819.613mil|Location2.X=1130.195mil|Location1.Y=685.196mil|Location2.Y=835.703mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U1-55(846.149mil,809.168mil) on L1 And Pad U1-3(1103.659mil,711.731mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1049.284mil|Location2.X=1572.858mil|Location1.Y=399.323mil|Location2.Y=1232.407mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1049.284mil|Location2.X=1572.858mil|Location1.Y=399.323mil|Location2.Y=1232.407mil|Absolute=True">Un-Routed Net Constraint: Net nWAKE Between Pad U1-32(1075.82mil,1205.871mil) on L1 And Via (1560mil,412.181mil) from L1 to L4 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=819.613mil|Location2.X=914.443mil|Location1.Y=782.632mil|Location2.Y=1148.89mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=819.613mil|Location2.X=914.443mil|Location1.Y=782.632mil|Location2.Y=1148.89mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U1-55(846.149mil,809.168mil) on L1 And Pad U1-39(887.908mil,1122.355mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=510.045mil|Location2.X=987.908mil|Location1.Y=1123mil|Location2.Y=1222.355mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=510.045mil|Location2.X=987.908mil|Location1.Y=1123mil|Location2.Y=1222.355mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Track (592.045mil,1205mil)(610.045mil,1223mil) on L1 And Pad U1-39(887.908mil,1122.355mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=736.097mil|Location2.X=1042.858mil|Location1.Y=866.148mil|Location2.Y=1827.858mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=736.097mil|Location2.X=1042.858mil|Location1.Y=866.148mil|Location2.Y=1827.858mil|Absolute=True">Un-Routed Net Constraint: Net DEBUG_PC3/TDO/SWO Between Pad U1-49(762.633mil,892.684mil) on L1 And Via (1030mil,1815mil) from L1 to L4 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=750.016mil|Location2.X=1122.858mil|Location1.Y=852.229mil|Location2.Y=1837.858mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=750.016mil|Location2.X=1122.858mil|Location1.Y=852.229mil|Location2.Y=1837.858mil|Absolute=True">Un-Routed Net Constraint: Net DEBUG_PC2/TDI Between Pad U1-50(776.552mil,878.765mil) on L1 And Via (1110mil,1825mil) from L4 to L6 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=718.311mil|Location2.X=1760mil|Location1.Y=737.006mil|Location2.Y=765mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=718.311mil|Location2.X=1760mil|Location1.Y=737.006mil|Location2.Y=765mil|Absolute=True">Un-Routed Net Constraint: Net PD6 Between Pad U1-53(818.311mil,837.006mil) on L1 And Track (1660mil,665mil)(1700mil,665mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=732.23mil|Location2.X=960.069mil|Location1.Y=723.087mil|Location2.Y=1166.677mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=732.23mil|Location2.X=960.069mil|Location1.Y=723.087mil|Location2.Y=1166.677mil|Absolute=True">Un-Routed Net Constraint: Net NetC3_1 Between Pad U1-54(832.23mil,823.087mil) on L1 And Track (860.069mil,1066.677mil)(876.221mil,1066.677mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=620.02mil|Location2.X=946.149mil|Location1.Y=605.616mil|Location2.Y=909.168mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=620.02mil|Location2.X=946.149mil|Location1.Y=605.616mil|Location2.Y=909.168mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Track (720.02mil,705.615mil)(720.02mil,705.616mil) on L1 And Pad U1-55(846.149mil,809.168mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=760.069mil|Location2.X=1273.435mil|Location1.Y=695.248mil|Location2.Y=1208.435mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=760.069mil|Location2.X=1273.435mil|Location1.Y=695.248mil|Location2.Y=1208.435mil|Absolute=True">Un-Routed Net Constraint: Net +MCU_VDDC Between Pad U1-56(860.069mil,795.248mil) on L1 And Track (1173.435mil,1108.435mil)(1173.435mil,1108.525mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=627.559mil|Location2.X=960.069mil|Location1.Y=563.145mil|Location2.Y=895.248mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=627.559mil|Location2.X=960.069mil|Location1.Y=563.145mil|Location2.Y=895.248mil|Absolute=True">Un-Routed Net Constraint: Net +MCU_VDDC Between Track (727.559mil,614.237mil)(727.559mil,663.145mil) on L1 And Pad U1-56(860.069mil,795.248mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1031.931mil|Location2.X=1266.309mil|Location1.Y=1924.937mil|Location2.Y=1982.15mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1031.931mil|Location2.X=1266.309mil|Location1.Y=1924.937mil|Location2.Y=1982.15mil|Absolute=True">Un-Routed Net Constraint: Net DEBUG_PC0/TCK/SWCLK Between Pad U2-19(1040.852mil,1953.543mil) on L1 And Pad U2-30(1257.387mil,1953.543mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=980mil|Location2.X=1180.222mil|Location1.Y=1810.444mil|Location2.Y=2053.543mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=980mil|Location2.X=1180.222mil|Location1.Y=1810.444mil|Location2.Y=2053.543mil|Absolute=True">Un-Routed Net Constraint: Net DEBUG_PC3/TDO/SWO Between Track (1079.611mil,1910.055mil)(1080mil,1910.444mil) on L6 And Pad U2-21(1080.222mil,1953.543mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=872.142mil|Location2.X=1187.568mil|Location1.Y=1924.937mil|Location2.Y=2047.858mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=872.142mil|Location2.X=1187.568mil|Location1.Y=1924.937mil|Location2.Y=2047.858mil|Absolute=True">Un-Routed Net Constraint: Net +3.3V Between Via (885mil,2035mil) from L1 to L3 And Pad U2-26(1178.647mil,1953.543mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1189.411mil|Location2.X=1305.679mil|Location1.Y=1924.937mil|Location2.Y=1982.15mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1189.411mil|Location2.X=1305.679mil|Location1.Y=1924.937mil|Location2.Y=1982.15mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U2-27(1198.332mil,1953.543mil) on L1 And Pad U2-32(1296.757mil,1953.543mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1287.836mil|Location2.X=1399.183mil|Location1.Y=1924.937mil|Location2.Y=2055.968mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1287.836mil|Location2.X=1399.183mil|Location1.Y=1924.937mil|Location2.Y=2055.968mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U2-32(1296.757mil,1953.543mil) on L1 And Pad U2-34(1370.576mil,2047.047mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1341.97mil|Location2.X=1399.183mil|Location1.Y=2057.811mil|Location2.Y=2154.394mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1341.97mil|Location2.X=1399.183mil|Location1.Y=2057.811mil|Location2.Y=2154.394mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U2-35(1370.576mil,2066.732mil) on L1 And Pad U2-39(1370.576mil,2145.472mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1341.97mil|Location2.X=1399.183mil|Location1.Y=2097.181mil|Location2.Y=2213.449mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1341.97mil|Location2.X=1399.183mil|Location1.Y=2097.181mil|Location2.Y=2213.449mil|Absolute=True">Un-Routed Net Constraint: Net +3.3V Between Pad U2-37(1370.576mil,2106.102mil) on L1 And Pad U2-42(1370.576mil,2204.528mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1341.97mil|Location2.X=1399.183mil|Location1.Y=2195.606mil|Location2.Y=2272.504mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1341.97mil|Location2.X=1399.183mil|Location1.Y=2195.606mil|Location2.Y=2272.504mil|Absolute=True">Un-Routed Net Constraint: Net +3.3V Between Pad U2-42(1370.576mil,2204.528mil) on L1 And Pad U2-45(1370.576mil,2263.583mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=847.348mil|Location2.X=1298.332mil|Location1.Y=2202.953mil|Location2.Y=2496.457mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=847.348mil|Location2.X=1298.332mil|Location1.Y=2202.953mil|Location2.Y=2496.457mil|Absolute=True">Un-Routed Net Constraint: Net +3.3V Between Track (927.663mil,2302.953mil)(947.348mil,2302.953mil) on L1 And Pad U2-54(1198.332mil,2396.457mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=807.978mil|Location2.X=1278.647mil|Location1.Y=2183.268mil|Location2.Y=2496.457mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=807.978mil|Location2.X=1278.647mil|Location1.Y=2183.268mil|Location2.Y=2496.457mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Track (894.71mil,2270mil)(907.978mil,2283.268mil) on L1 And Pad U2-55(1178.647mil,2396.457mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=960.537mil|Location2.X=1337.702mil|Location1.Y=1873.228mil|Location2.Y=2073.228mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=960.537mil|Location2.X=1337.702mil|Location1.Y=1873.228mil|Location2.Y=2073.228mil|Absolute=True">Un-Routed Net Constraint: Net DEBUG_PC1/TMS/SWDIO Between Track (1060.537mil,1953.543mil)(1060.537mil,1973.228mil) on L1 And Track (1237.702mil,1953.543mil)(1237.702mil,1973.228mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1270mil|Location2.X=2040mil|Location1.Y=2355mil|Location2.Y=2489.488mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1270mil|Location2.X=2040mil|Location1.Y=2355mil|Location2.Y=2489.488mil|Absolute=True">Un-Routed Net Constraint: Net +3.3V Between Via (1370mil,2455mil) from L1 to L4 And Track (1940mil,2389.488mil)(1940mil,2390.472mil) on L1 </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDWKVLWDFGECREC0O4PUWVK2YBHDT2WQHIFQGIX5KPOY22ZVYT1XYF"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Minimum Solder Mask Sliver (Gap=1mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1598.566mil|Location2.X=1600.816mil|Location1.Y=2389.229mil|Location2.Y=2391.479mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1598.566mil|Location2.X=1600.816mil|Location1.Y=2389.229mil|Location2.Y=2391.479mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.662mil &lt; 1mil) Between Pad C25-1(1613.927mil,2375mil) on L1 And Pad C25-2(1613.927mil,2405.709mil) on L1 [Top Solder] Mask Sliver [0.662mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1598.566mil|Location2.X=1600.816mil|Location1.Y=2248.875mil|Location2.Y=2251.125mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1598.566mil|Location2.X=1600.816mil|Location1.Y=2248.875mil|Location2.Y=2251.125mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.662mil &lt; 1mil) Between Pad C26-1(1613.927mil,2234.646mil) on L1 And Pad C26-2(1613.927mil,2265.354mil) on L1 [Top Solder] Mask Sliver [0.662mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=432.061mil|Location2.X=434.311mil|Location1.Y=1207.639mil|Location2.Y=1209.889mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=432.061mil|Location2.X=434.311mil|Location1.Y=1207.639mil|Location2.Y=1209.889mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.662mil &lt; 1mil) Between Pad C31-1(448.541mil,1223mil) on L1 And Pad C31-2(417.832mil,1223mil) on L1 [Top Solder] Mask Sliver [0.662mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=625.061mil|Location2.X=627.311mil|Location1.Y=1207.639mil|Location2.Y=1209.889mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=625.061mil|Location2.X=627.311mil|Location1.Y=1207.639mil|Location2.Y=1209.889mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.662mil &lt; 1mil) Between Pad C32-1(641.541mil,1223mil) on L1 And Pad C32-2(610.832mil,1223mil) on L1 [Top Solder] Mask Sliver [0.662mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDNFNR1KK0HP1BOFAEPSRFGLFTQIAKXS2NDZLXCCFAA0FBA24USR1L"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk To Solder Mask (Clearance=3.5mil) (IsPad),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1015.321mil|Location2.X=1021.905mil|Location1.Y=1847.969mil|Location2.Y=1855.024mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1015.321mil|Location2.X=1021.905mil|Location1.Y=1847.969mil|Location2.Y=1855.024mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad  -1(1030.669mil,1865mil) on L1 And Track (1008mil,1850mil)(1012mil,1850mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1015.321mil|Location2.X=1021.815mil|Location1.Y=1874.976mil|Location2.Y=1882.073mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1015.321mil|Location2.X=1021.815mil|Location1.Y=1874.976mil|Location2.Y=1882.073mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad  -1(1030.669mil,1865mil) on L1 And Track (1008mil,1880mil)(1012mil,1880mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=999.929mil|Location2.X=1006.423mil|Location1.Y=1850.274mil|Location2.Y=1857.37mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=999.929mil|Location2.X=1006.423mil|Location1.Y=1850.274mil|Location2.Y=1857.37mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad  -2(989.331mil,1865mil) on L1 And Track (1008mil,1850mil)(1012mil,1850mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=999.929mil|Location2.X=1006.513mil|Location1.Y=1872.672mil|Location2.Y=1879.726mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=999.929mil|Location2.X=1006.513mil|Location1.Y=1872.672mil|Location2.Y=1879.726mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad  -2(989.331mil,1865mil) on L1 And Track (1008mil,1880mil)(1012mil,1880mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=713.982mil|Location2.X=720.567mil|Location1.Y=647.886mil|Location2.Y=654.94mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=713.982mil|Location2.X=720.567mil|Location1.Y=647.886mil|Location2.Y=654.94mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C10-1(729.331mil,664.917mil) on L1 And Track (706.661mil,649.917mil)(710.661mil,649.917mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=713.982mil|Location2.X=720.476mil|Location1.Y=674.893mil|Location2.Y=681.989mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=713.982mil|Location2.X=720.476mil|Location1.Y=674.893mil|Location2.Y=681.989mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C10-1(729.331mil,664.917mil) on L1 And Track (706.661mil,679.917mil)(710.661mil,679.917mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=698.59mil|Location2.X=705.084mil|Location1.Y=650.19mil|Location2.Y=657.286mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=698.59mil|Location2.X=705.084mil|Location1.Y=650.19mil|Location2.Y=657.286mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C10-2(687.992mil,664.917mil) on L1 And Track (706.661mil,649.917mil)(710.661mil,649.917mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=698.59mil|Location2.X=705.175mil|Location1.Y=672.589mil|Location2.Y=679.643mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=698.59mil|Location2.X=705.175mil|Location1.Y=672.589mil|Location2.Y=679.643mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C10-2(687.992mil,664.917mil) on L1 And Track (706.661mil,679.917mil)(710.661mil,679.917mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1360.929mil|Location2.X=1367.423mil|Location1.Y=1158.274mil|Location2.Y=1165.37mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1360.929mil|Location2.X=1367.423mil|Location1.Y=1158.274mil|Location2.Y=1165.37mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C11-1(1350.331mil,1173mil) on L1 And Track (1369mil,1158mil)(1373mil,1158mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1360.929mil|Location2.X=1367.513mil|Location1.Y=1180.672mil|Location2.Y=1187.726mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1360.929mil|Location2.X=1367.513mil|Location1.Y=1180.672mil|Location2.Y=1187.726mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C11-1(1350.331mil,1173mil) on L1 And Track (1369mil,1188mil)(1373mil,1188mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1376.321mil|Location2.X=1382.905mil|Location1.Y=1155.969mil|Location2.Y=1163.024mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1376.321mil|Location2.X=1382.905mil|Location1.Y=1155.969mil|Location2.Y=1163.024mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C11-2(1391.669mil,1173mil) on L1 And Track (1369mil,1158mil)(1373mil,1158mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1376.321mil|Location2.X=1382.815mil|Location1.Y=1182.976mil|Location2.Y=1190.073mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1376.321mil|Location2.X=1382.815mil|Location1.Y=1182.976mil|Location2.Y=1190.073mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C11-2(1391.669mil,1173mil) on L1 And Track (1369mil,1188mil)(1373mil,1188mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=790.274mil|Location2.X=797.328mil|Location1.Y=2214.929mil|Location2.Y=2221.513mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=790.274mil|Location2.X=797.328mil|Location1.Y=2214.929mil|Location2.Y=2221.513mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C15-1(805mil,2204.331mil) on L1 And Track (790mil,2223mil)(790mil,2227mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=814.976mil|Location2.X=822.073mil|Location1.Y=2213.185mil|Location2.Y=2219.679mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=814.976mil|Location2.X=822.073mil|Location1.Y=2213.185mil|Location2.Y=2219.679mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C15-1(805mil,2204.331mil) on L1 And Track (820mil,2223mil)(820mil,2227mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=790.274mil|Location2.X=797.37mil|Location1.Y=2228.577mil|Location2.Y=2235.071mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=790.274mil|Location2.X=797.37mil|Location1.Y=2228.577mil|Location2.Y=2235.071mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C15-2(805mil,2245.669mil) on L1 And Track (790mil,2223mil)(790mil,2227mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=814.976mil|Location2.X=822.03mil|Location1.Y=2230.321mil|Location2.Y=2236.905mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=814.976mil|Location2.X=822.03mil|Location1.Y=2230.321mil|Location2.Y=2236.905mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C15-2(805mil,2245.669mil) on L1 And Track (820mil,2223mil)(820mil,2227mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1185.321mil|Location2.X=1191.905mil|Location1.Y=1847.969mil|Location2.Y=1855.024mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1185.321mil|Location2.X=1191.905mil|Location1.Y=1847.969mil|Location2.Y=1855.024mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C17-1(1200.669mil,1865mil) on L1 And Track (1178mil,1850mil)(1182mil,1850mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1185.321mil|Location2.X=1191.815mil|Location1.Y=1874.976mil|Location2.Y=1882.073mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1185.321mil|Location2.X=1191.815mil|Location1.Y=1874.976mil|Location2.Y=1882.073mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C17-1(1200.669mil,1865mil) on L1 And Track (1178mil,1880mil)(1182mil,1880mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1169.929mil|Location2.X=1176.423mil|Location1.Y=1850.274mil|Location2.Y=1857.37mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1169.929mil|Location2.X=1176.423mil|Location1.Y=1850.274mil|Location2.Y=1857.37mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C17-2(1159.331mil,1865mil) on L1 And Track (1178mil,1850mil)(1182mil,1850mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1169.929mil|Location2.X=1176.513mil|Location1.Y=1872.672mil|Location2.Y=1879.726mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1169.929mil|Location2.X=1176.513mil|Location1.Y=1872.672mil|Location2.Y=1879.726mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C17-2(1159.331mil,1865mil) on L1 And Track (1178mil,1880mil)(1182mil,1880mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=625.274mil|Location2.X=632.37mil|Location1.Y=2124.247mil|Location2.Y=2130.74mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=625.274mil|Location2.X=632.37mil|Location1.Y=2124.247mil|Location2.Y=2130.74mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C18-1(640mil,2141.339mil) on L1 And Track (625mil,2118.669mil)(625mil,2122.669mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=649.976mil|Location2.X=657.03mil|Location1.Y=2125.99mil|Location2.Y=2132.575mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=649.976mil|Location2.X=657.03mil|Location1.Y=2125.99mil|Location2.Y=2132.575mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C18-1(640mil,2141.339mil) on L1 And Track (655mil,2118.669mil)(655mil,2122.669mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=625.274mil|Location2.X=632.328mil|Location1.Y=2110.598mil|Location2.Y=2117.183mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=625.274mil|Location2.X=632.328mil|Location1.Y=2110.598mil|Location2.Y=2117.183mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C18-2(640mil,2100mil) on L1 And Track (625mil,2118.669mil)(625mil,2122.669mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=649.976mil|Location2.X=657.073mil|Location1.Y=2108.854mil|Location2.Y=2115.348mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=649.976mil|Location2.X=657.073mil|Location1.Y=2108.854mil|Location2.Y=2115.348mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C18-2(640mil,2100mil) on L1 And Track (655mil,2118.669mil)(655mil,2122.669mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1260.274mil|Location2.X=1267.328mil|Location1.Y=2464.929mil|Location2.Y=2471.513mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1260.274mil|Location2.X=1267.328mil|Location1.Y=2464.929mil|Location2.Y=2471.513mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C19-1(1275mil,2454.331mil) on L1 And Track (1260mil,2473mil)(1260mil,2477mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1284.976mil|Location2.X=1292.073mil|Location1.Y=2463.185mil|Location2.Y=2469.679mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1284.976mil|Location2.X=1292.073mil|Location1.Y=2463.185mil|Location2.Y=2469.679mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C19-1(1275mil,2454.331mil) on L1 And Track (1290mil,2473mil)(1290mil,2477mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1260.274mil|Location2.X=1267.37mil|Location1.Y=2478.577mil|Location2.Y=2485.071mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1260.274mil|Location2.X=1267.37mil|Location1.Y=2478.577mil|Location2.Y=2485.071mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C19-2(1275mil,2495.669mil) on L1 And Track (1260mil,2473mil)(1260mil,2477mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1284.976mil|Location2.X=1292.031mil|Location1.Y=2480.321mil|Location2.Y=2486.905mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1284.976mil|Location2.X=1292.031mil|Location1.Y=2480.321mil|Location2.Y=2486.905mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C19-2(1275mil,2495.669mil) on L1 And Track (1290mil,2473mil)(1290mil,2477mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=840.274mil|Location2.X=847.328mil|Location1.Y=2044.929mil|Location2.Y=2051.513mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=840.274mil|Location2.X=847.328mil|Location1.Y=2044.929mil|Location2.Y=2051.513mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C20-1(855mil,2034.331mil) on L1 And Track (840mil,2053mil)(840mil,2057mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=864.976mil|Location2.X=872.073mil|Location1.Y=2043.185mil|Location2.Y=2049.679mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=864.976mil|Location2.X=872.073mil|Location1.Y=2043.185mil|Location2.Y=2049.679mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C20-1(855mil,2034.331mil) on L1 And Track (870mil,2053mil)(870mil,2057mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=839.986mil|Location2.X=844.736mil|Location1.Y=2068.211mil|Location2.Y=2072.961mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=839.986mil|Location2.X=844.736mil|Location1.Y=2068.211mil|Location2.Y=2072.961mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.655mil &lt; 3.5mil) Between Pad C20-2(855mil,2075.669mil) on L1 And Text "R19" (790mil,2071mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [1.655mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=840.274mil|Location2.X=847.37mil|Location1.Y=2058.577mil|Location2.Y=2065.071mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=840.274mil|Location2.X=847.37mil|Location1.Y=2058.577mil|Location2.Y=2065.071mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C20-2(855mil,2075.669mil) on L1 And Track (840mil,2053mil)(840mil,2057mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=864.976mil|Location2.X=872.03mil|Location1.Y=2060.321mil|Location2.Y=2066.905mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=864.976mil|Location2.X=872.03mil|Location1.Y=2060.321mil|Location2.Y=2066.905mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C20-2(855mil,2075.669mil) on L1 And Track (870mil,2053mil)(870mil,2057mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1474.26mil|Location2.X=1480.753mil|Location1.Y=2415.274mil|Location2.Y=2422.37mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1474.26mil|Location2.X=1480.753mil|Location1.Y=2415.274mil|Location2.Y=2422.37mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C21-1(1463.661mil,2430mil) on L1 And Track (1482.331mil,2415mil)(1486.331mil,2415mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1474.26mil|Location2.X=1480.844mil|Location1.Y=2437.672mil|Location2.Y=2444.726mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1474.26mil|Location2.X=1480.844mil|Location1.Y=2437.672mil|Location2.Y=2444.726mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C21-1(1463.661mil,2430mil) on L1 And Track (1482.331mil,2445mil)(1486.331mil,2445mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1489.652mil|Location2.X=1496.236mil|Location1.Y=2412.97mil|Location2.Y=2420.024mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1489.652mil|Location2.X=1496.236mil|Location1.Y=2412.97mil|Location2.Y=2420.024mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C21-2(1505mil,2430mil) on L1 And Track (1482.331mil,2415mil)(1486.331mil,2415mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1489.652mil|Location2.X=1496.146mil|Location1.Y=2439.976mil|Location2.Y=2447.073mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1489.652mil|Location2.X=1496.146mil|Location1.Y=2439.976mil|Location2.Y=2447.073mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C21-2(1505mil,2430mil) on L1 And Track (1482.331mil,2445mil)(1486.331mil,2445mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1184.929mil|Location2.X=1191.423mil|Location1.Y=2480.274mil|Location2.Y=2487.37mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1184.929mil|Location2.X=1191.423mil|Location1.Y=2480.274mil|Location2.Y=2487.37mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C24-1(1174.331mil,2495mil) on L1 And Track (1193mil,2480mil)(1197mil,2480mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1184.929mil|Location2.X=1191.513mil|Location1.Y=2502.672mil|Location2.Y=2509.726mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1184.929mil|Location2.X=1191.513mil|Location1.Y=2502.672mil|Location2.Y=2509.726mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C24-1(1174.331mil,2495mil) on L1 And Track (1193mil,2510mil)(1197mil,2510mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1200.321mil|Location2.X=1206.905mil|Location1.Y=2477.97mil|Location2.Y=2485.024mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1200.321mil|Location2.X=1206.905mil|Location1.Y=2477.97mil|Location2.Y=2485.024mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C24-2(1215.669mil,2495mil) on L1 And Track (1193mil,2480mil)(1197mil,2480mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1200.321mil|Location2.X=1206.815mil|Location1.Y=2504.976mil|Location2.Y=2512.073mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1200.321mil|Location2.X=1206.815mil|Location1.Y=2504.976mil|Location2.Y=2512.073mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C24-2(1215.669mil,2495mil) on L1 And Track (1193mil,2510mil)(1197mil,2510mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1360.929mil|Location2.X=1367.423mil|Location1.Y=1120.274mil|Location2.Y=1127.37mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1360.929mil|Location2.X=1367.423mil|Location1.Y=1120.274mil|Location2.Y=1127.37mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C3-1(1350.331mil,1135mil) on L1 And Track (1369mil,1120mil)(1373mil,1120mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1360.929mil|Location2.X=1367.513mil|Location1.Y=1142.672mil|Location2.Y=1149.726mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1360.929mil|Location2.X=1367.513mil|Location1.Y=1142.672mil|Location2.Y=1149.726mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C3-1(1350.331mil,1135mil) on L1 And Track (1369mil,1150mil)(1373mil,1150mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1376.321mil|Location2.X=1382.905mil|Location1.Y=1117.969mil|Location2.Y=1125.024mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1376.321mil|Location2.X=1382.905mil|Location1.Y=1117.969mil|Location2.Y=1125.024mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C3-2(1391.669mil,1135mil) on L1 And Track (1369mil,1120mil)(1373mil,1120mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1376.321mil|Location2.X=1382.815mil|Location1.Y=1144.976mil|Location2.Y=1152.073mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1376.321mil|Location2.X=1382.815mil|Location1.Y=1144.976mil|Location2.Y=1152.073mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C3-2(1391.669mil,1135mil) on L1 And Track (1369mil,1150mil)(1373mil,1150mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=698.59mil|Location2.X=705.084mil|Location1.Y=700.2mil|Location2.Y=707.296mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=698.59mil|Location2.X=705.084mil|Location1.Y=700.2mil|Location2.Y=707.296mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C4-1(687.992mil,714.927mil) on L1 And Track (706.661mil,699.927mil)(710.661mil,699.927mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=698.59mil|Location2.X=705.175mil|Location1.Y=722.599mil|Location2.Y=729.653mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=698.59mil|Location2.X=705.175mil|Location1.Y=722.599mil|Location2.Y=729.653mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C4-1(687.992mil,714.927mil) on L1 And Track (706.661mil,729.927mil)(710.661mil,729.927mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=713.982mil|Location2.X=720.567mil|Location1.Y=697.896mil|Location2.Y=704.95mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=713.982mil|Location2.X=720.567mil|Location1.Y=697.896mil|Location2.Y=704.95mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C4-2(729.331mil,714.927mil) on L1 And Track (706.661mil,699.927mil)(710.661mil,699.927mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=713.982mil|Location2.X=720.476mil|Location1.Y=724.903mil|Location2.Y=731.999mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=713.982mil|Location2.X=720.476mil|Location1.Y=724.903mil|Location2.Y=731.999mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C4-2(729.331mil,714.927mil) on L1 And Track (706.661mil,729.927mil)(710.661mil,729.927mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1298.929mil|Location2.X=1305.423mil|Location1.Y=430.274mil|Location2.Y=437.37mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1298.929mil|Location2.X=1305.423mil|Location1.Y=430.274mil|Location2.Y=437.37mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C5-1(1288.331mil,445mil) on L1 And Track (1307mil,430mil)(1311mil,430mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1298.929mil|Location2.X=1305.513mil|Location1.Y=452.672mil|Location2.Y=459.726mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1298.929mil|Location2.X=1305.513mil|Location1.Y=452.672mil|Location2.Y=459.726mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C5-1(1288.331mil,445mil) on L1 And Track (1307mil,460mil)(1311mil,460mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1314.321mil|Location2.X=1320.905mil|Location1.Y=427.969mil|Location2.Y=435.024mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1314.321mil|Location2.X=1320.905mil|Location1.Y=427.969mil|Location2.Y=435.024mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C5-2(1329.669mil,445mil) on L1 And Track (1307mil,430mil)(1311mil,430mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1314.321mil|Location2.X=1320.815mil|Location1.Y=454.976mil|Location2.Y=462.073mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1314.321mil|Location2.X=1320.815mil|Location1.Y=454.976mil|Location2.Y=462.073mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C5-2(1329.669mil,445mil) on L1 And Track (1307mil,460mil)(1311mil,460mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1220.274mil|Location2.X=1227.37mil|Location1.Y=473.577mil|Location2.Y=480.071mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1220.274mil|Location2.X=1227.37mil|Location1.Y=473.577mil|Location2.Y=480.071mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C6-1(1235mil,490.669mil) on L1 And Track (1220mil,468mil)(1220mil,472mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1244.976mil|Location2.X=1252.031mil|Location1.Y=475.321mil|Location2.Y=481.905mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1244.976mil|Location2.X=1252.031mil|Location1.Y=475.321mil|Location2.Y=481.905mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C6-1(1235mil,490.669mil) on L1 And Track (1250mil,468mil)(1250mil,472mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1220.274mil|Location2.X=1227.328mil|Location1.Y=459.929mil|Location2.Y=466.513mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1220.274mil|Location2.X=1227.328mil|Location1.Y=459.929mil|Location2.Y=466.513mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C6-2(1235mil,449.331mil) on L1 And Track (1220mil,468mil)(1220mil,472mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1244.976mil|Location2.X=1252.073mil|Location1.Y=458.185mil|Location2.Y=464.679mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1244.976mil|Location2.X=1252.073mil|Location1.Y=458.185mil|Location2.Y=464.679mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C6-2(1235mil,449.331mil) on L1 And Track (1250mil,468mil)(1250mil,472mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1298.929mil|Location2.X=1305.423mil|Location1.Y=475.274mil|Location2.Y=482.37mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1298.929mil|Location2.X=1305.423mil|Location1.Y=475.274mil|Location2.Y=482.37mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C8-1(1288.331mil,490mil) on L1 And Track (1307mil,475mil)(1311mil,475mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1298.929mil|Location2.X=1305.513mil|Location1.Y=497.672mil|Location2.Y=504.726mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1298.929mil|Location2.X=1305.513mil|Location1.Y=497.672mil|Location2.Y=504.726mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C8-1(1288.331mil,490mil) on L1 And Track (1307mil,505mil)(1311mil,505mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1314.321mil|Location2.X=1320.905mil|Location1.Y=472.969mil|Location2.Y=480.024mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1314.321mil|Location2.X=1320.905mil|Location1.Y=472.969mil|Location2.Y=480.024mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C8-2(1329.669mil,490mil) on L1 And Track (1307mil,475mil)(1311mil,475mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1314.321mil|Location2.X=1320.815mil|Location1.Y=499.976mil|Location2.Y=507.073mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1314.321mil|Location2.X=1320.815mil|Location1.Y=499.976mil|Location2.Y=507.073mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.563mil &lt; 3.5mil) Between Pad C8-2(1329.669mil,490mil) on L1 And Track (1307mil,505mil)(1311mil,505mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.563mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=523.546mil|Location2.X=528.296mil|Location1.Y=2464.593mil|Location2.Y=2469.343mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=523.546mil|Location2.X=528.296mil|Location1.Y=2464.593mil|Location2.Y=2469.343mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.945mil &lt; 3.5mil) Between Pad J11-S2(553.558mil,2435mil) on L1 And Track (525.921mil,2469.409mil)(525.921mil,2477.284mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.945mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=179.2mil|Location2.X=183.95mil|Location1.Y=1512.743mil|Location2.Y=1517.493mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=179.2mil|Location2.X=183.95mil|Location1.Y=1512.743mil|Location2.Y=1517.493mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.945mil &lt; 3.5mil) Between Pad J9-S2(213.543mil,1542.756mil) on L1 And Track (171.26mil,1515.118mil)(179.134mil,1515.118mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.945mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1629.821mil|Location2.X=1634.571mil|Location1.Y=1680.364mil|Location2.Y=1685.114mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1629.821mil|Location2.X=1634.571mil|Location1.Y=1680.364mil|Location2.Y=1685.114mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.624mil &lt; 3.5mil) Between Pad Q2-1(1642.508mil,1688.685mil) on L1 And Text "Q3" (1627mil,1659mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.624mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1631.581mil|Location2.X=1636.331mil|Location1.Y=1655.627mil|Location2.Y=1660.377mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1631.581mil|Location2.X=1636.331mil|Location1.Y=1655.627mil|Location2.Y=1660.377mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (3.358mil &lt; 3.5mil) Between Pad Q2-2(1642.508mil,1649.315mil) on L1 And Text "Q3" (1627mil,1659mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [3.358mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1634.92mil|Location2.X=1638.253mil|Location1.Y=1573.097mil|Location2.Y=1576.43mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1634.92mil|Location2.X=1638.253mil|Location1.Y=1573.097mil|Location2.Y=1576.43mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 3.5mil) Between Pad Q3-2(1641.508mil,1571.315mil) on L1 And Text "Q1" (1630mil,1566.195mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1771.222mil|Location2.X=1775.972mil|Location1.Y=1522.044mil|Location2.Y=1526.794mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1771.222mil|Location2.X=1775.972mil|Location1.Y=1522.044mil|Location2.Y=1526.794mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (3.289mil &lt; 3.5mil) Between Pad R3-1(1763.236mil,1514mil) on L1 And Text "R3" (1742.354mil,1526.364mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [3.289mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=540.161mil|Location2.X=543.494mil|Location1.Y=1513.167mil|Location2.Y=1516.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=540.161mil|Location2.X=543.494mil|Location1.Y=1513.167mil|Location2.Y=1516.5mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 3.5mil) Between Pad Y1-3(523mil,1557mil) on L1 And Text "Y2" (532mil,1504mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDOS3XOXHGD1VUOC00FFOR21EULIAHKN2UDO0PBTIYOWVQ11F1KXLK"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk to Silk (Clearance=6mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1000.89mil|Location2.X=1008.14mil|Location1.Y=1405.871mil|Location2.Y=1413.121mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1000.89mil|Location2.X=1008.14mil|Location1.Y=1405.871mil|Location2.Y=1413.121mil|Absolute=True">Silk To Silk Clearance Constraint: (4.711mil &lt; 6mil) Between Text "H1" (1006.87mil,1399.142mil) on Top Overlay And Text "R28" (949.383mil,1407.364mil) on Top Overlay Silk Text to Silk Clearance [4.711mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1665.98mil|Location2.X=1673.23mil|Location1.Y=1561.193mil|Location2.Y=1568.443mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1665.98mil|Location2.X=1673.23mil|Location1.Y=1561.193mil|Location2.Y=1568.443mil|Absolute=True">Silk To Silk Clearance Constraint: (2.754mil &lt; 6mil) Between Text "Q1" (1630mil,1566.195mil) on Top Overlay And Track (1666.504mil,1559.504mil)(1682.748mil,1559.504mil) on Top Overlay Silk Text to Silk Clearance [2.754mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1631.331mil|Location2.X=1638.581mil|Location1.Y=1732.715mil|Location2.Y=1739.965mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1631.331mil|Location2.X=1638.581mil|Location1.Y=1732.715mil|Location2.Y=1739.965mil|Absolute=True">Silk To Silk Clearance Constraint: (2.681mil &lt; 6mil) Between Text "Q2" (1628mil,1737mil) on Top Overlay And Track (410mil,1730mil)(1965mil,1730mil) on Top Overlay Silk Text to Silk Clearance [2.681mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1474.638mil|Location2.X=1481.888mil|Location1.Y=2284.171mil|Location2.Y=2291.421mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1474.638mil|Location2.X=1481.888mil|Location1.Y=2284.171mil|Location2.Y=2291.421mil|Absolute=True">Silk To Silk Clearance Constraint: (4.407mil &lt; 6mil) Between Text "R20" (1460mil,2290mil) on Top Overlay And Track (1433.736mil,2281.656mil)(1546.264mil,2281.656mil) on Top Overlay Silk Text to Silk Clearance [4.407mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=502.226mil|Location2.X=509.476mil|Location1.Y=1272.354mil|Location2.Y=1279.604mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=502.226mil|Location2.X=509.476mil|Location1.Y=1272.354mil|Location2.Y=1279.604mil|Absolute=True">Silk To Silk Clearance Constraint: (2.771mil &lt; 6mil) Between Text "R26" (487.587mil,1277.364mil) on Top Overlay And Track (466.922mil,1270.656mil)(579.451mil,1270.656mil) on Top Overlay Silk Text to Silk Clearance [2.771mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=571.526mil|Location2.X=578.776mil|Location1.Y=1514.384mil|Location2.Y=1521.634mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=571.526mil|Location2.X=578.776mil|Location1.Y=1514.384mil|Location2.Y=1521.634mil|Absolute=True">Silk To Silk Clearance Constraint: (5.796mil &lt; 6mil) Between Text "Y2" (532mil,1504mil) on Top Overlay And Track (583.039mil,1517.63mil)(739.535mil,1517.63mil) on Top Overlay Silk Text to Silk Clearance [5.796mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="ID3W4DH3HHZX0CP22YEOCDO3SYTKOENRCYHC3DKOLWC4EKVOMEKMPF"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Net Antennae (Tolerance=0mil) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1654mil|Location2.X=1672.146mil|Location1.Y=659mil|Location2.Y=684.224mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1654mil|Location2.X=1672.146mil|Location1.Y=659mil|Location2.Y=684.224mil|Absolute=True">Net Antennae: Track (1660mil,665mil)(1700mil,665mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1543.642mil|Location2.X=1584.337mil|Location1.Y=395.823mil|Location2.Y=458.427mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\vaneg\Desktop\Proyecto_multicapa\ProyectoMulticapa\TivaC.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1543.642mil|Location2.X=1584.337mil|Location1.Y=395.823mil|Location2.Y=458.427mil|Absolute=True">Net Antennae: Via (1560mil,412.181mil) from L4 to L6 </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>
