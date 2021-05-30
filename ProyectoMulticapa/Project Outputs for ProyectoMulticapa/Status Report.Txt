@@ -1,0 +1,18 @@
+Output: NC Drill Files
+Type  : NC Drill
+From  : Project [ProyectoMulticapa.PrjPcb]
+   Generated File[TivaC.TXT]
+   Generated File[TivaC.TX1]
+   Generated File[TivaC.TX2]
+   Generated File[TivaC.TX3]
+   Generated File[TivaC.TX4]
+   Generated File[TivaC.TX5]
+   Generated File[TivaC.TX6]
+   Generated File[TivaC.LDP]
+   Generated File[TivaC.DRR]
+
+
+Files Generated   : 9
+Documents Printed : 0
+
+Finished Output Generation At 13:23:32 On 30/05/2021
